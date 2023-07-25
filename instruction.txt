@@ -6,3 +6,4 @@ create 2 folder router and db
 inside those folder create respective files db.js and router.js
 create app.js
 use command node app.js to run application
+alter user 'root'@localhost identified with mysql_native_password by 'root123';
