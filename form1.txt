@@ -1,0 +1,197 @@
+<html>
+<head>
+    <title>Employee</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
+    <script>
+        function validatename(name) {
+            if (name !== "" && isNaN(name)) {
+                document.getElementById("errname").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("errname").innerHTML = "Please enter a valid name";
+                return false;
+            }
+        }
+
+        function validatepassword(password) {
+            if (password !== "") {
+                document.getElementById("errpasswd").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("errpasswd").innerHTML = "Please enter a valid password";
+                return false;
+            }
+        }
+
+        function validateemail() {
+            var email = document.getElementById("email").value;
+            var pattern = /^[A-Za-z0-9]+\@([A-Za-z]+\.[A-Za-z]{2,4})$/;
+
+            if (email !== "" && pattern.test(email)) {
+                document.getElementById("erremail").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("erremail").innerHTML = "Please enter a valid email id";
+                return false;
+            }
+        }
+
+        function validateempid(empid) {
+            empid = parseInt(empid);
+            if (isNaN(empid)) {
+                document.getElementById("errempid").innerHTML = "Please enter a valid empid";
+                return false;
+            } else {
+                document.getElementById("errempid").innerHTML = "";
+                return true;
+            }
+        }
+
+        function validatesal(sal) {
+            sal = parseFloat(sal);
+            if (isNaN(sal)) {
+                document.getElementById("errsal").innerHTML = "Please enter a valid salary";
+                return false;
+            } else {
+                document.getElementById("errsal").innerHTML = "";
+                return true;
+            }
+        }
+
+        var gender = "";
+
+        function validategender() {
+            var arr = document.getElementsByName("gender");
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].checked) {
+                    gender = arr[i].value;
+                    document.getElementById("errgender").innerHTML = "";
+                    return true;
+                }
+            }
+            document.getElementById("errgender").innerHTML = "Please select a gender";
+            return false;
+        }
+
+        var skill = "";
+
+        function validateskill() {
+            var cnt = 0;
+            var arr1 = document.getElementsByName("skills");
+            for (var i = 0; i < arr1.length; i++) {
+                if (arr1[i].checked) {
+                    skill += arr1[i].value + ", ";
+                    cnt++;
+                }
+            }
+            if (cnt >= 1) {
+                document.getElementById("errskill").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("errskill").innerHTML = "Please enter at least one skill";
+                return false;
+            }
+        }
+
+        function validatedept() {
+            var department = document.getElementById("department").selectedIndex;
+            if (department === 0) {
+                document.getElementById("errdept").innerHTML = "Please select a department";
+                return false;
+            } else {
+                document.getElementById("errdept").innerHTML = "";
+                return true;
+            }
+        }
+
+        function validate() {
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("passwd").value;
+            var email = document.getElementById("email").value;
+            var empid = document.getElementById("empid").value;
+            var sal = document.getElementById("sal").value;
+            var department = document.getElementById("department").value;
+
+            var flag1 = validatename(name);
+            var flag2 = validatepassword(password);
+            var flag3 = validateemail();
+            var flag4 = validateempid(empid);
+            var flag5 = validatesal(sal);
+            var flag6 = validategender();
+            var flag7 = validateskill();
+            var flag8 = validatedept();
+
+            if (flag1 && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8) {
+                document.getElementById("mydiv").innerHTML = "UserName: " + name + "<br>" +
+                    "Email: " + email + "<br>" +
+                    "EmpId: " + empid + "<br>" +
+                    "Salary: " + sal + "<br>" +
+                    "Gender: " + gender + "<br>" +
+                    "Skills: " + skill + "<br>" +
+                    "Department: " + department;
+                document.getElementById("mydiv").style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <label for="username">Enter Username</label>
+    <input type="text" name="name" id="name">
+    <span>*</span>
+    <span id="errname"></span>
+    <br>
+    <label for="password">Enter Password</label>
+    <input type="password" name="passwd" id="passwd">
+    <span>*</span>
+    <span id="errpasswd"></span>
+    <br>
+    <label for="email">Enter Email:</label>
+    <input type="text" name="email" id="email">
+    <span>*</span>
+    <span id="erremail"></span>
+    <br>
+    <label for="empid">Enter Employee id:</label>
+    <input type="text" name="empid" id="empid">
+    <span>*</span>
+    <span id="errempid"></span>
+    <br>
+    <label for="salary">Enter Salary</label>
+    <input type="text" name="sal" id="sal">
+    <span>*</span>
+    <span id="errsal"></span>
+    <br>
+    <label for="dob">Date of Birth:</label>
+    <input type="date" name="dob" id="dob">
+    <br>
+    <label for="gender">Gender</label>
+    <input type="radio" name="gender" id="male" value="male">Male
+    <input type="radio" name="gender" id="female" value="female">Female
+    <span>*</span>
+    <span id="errgender"></span>
+    <br>
+    <label for="skills">Choose Skills:</label>
+    <input type="checkbox" name="skills" id="java" value="Java">Java
+    <input type="checkbox" name="skills" id="c++" value="C++">C++
+    <input type="checkbox" name="skills" id="dbda" value="DBDA">DBDA
+    <span>*</span>
+    <span id="errskill"></span>
+    <br>
+    <label for="department">Choose Department:</label>
+    <select name="department" id="department">
+        <option value="test">----select----</option>
+        <option value="hr">HR</option>
+        <option value="sales">SALES</option>
+        <option value="rnd">RND</option>
+    </select>
+    <span>*</span>
+    <span id="errdept"></span>
+    <br>
+    <button type="submit" id="btn" value="btn" onclick="validate()">Submit</button>
+    <br>
+    <div id="mydiv" style="display: none;"></div>
+</body>
+</html>
